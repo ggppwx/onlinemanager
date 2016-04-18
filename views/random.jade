@@ -1,0 +1,60 @@
+extends layout
+
+block head
+    link(rel='stylesheet', href='/stylesheets/random.css')
+
+
+block content
+    h1 welcome
+
+    div(ng-controller="MainCtrl")
+        div(class="center")
+            h1
+                span(class="label label-default") {{output}}
+
+
+        div(class="center")
+            button(id="random" class="btn btn-default" ng-click="randomEvent()") I'm feeling lucky
+
+        div
+            input(id="input" type="text" class="form-control" placeholder="Add Events" ng-model="input" ng-keyup="$event.keyCode == 13 && addEvent()")
+
+
+        div
+            ul(id="events", class="list-unstyled")
+                li(ng-repeat="event in events track by $index") {{event.event}}
+                // initialize current todo 
+
+    script(type='text/javascript').
+        $(function() {
+            /*
+            $('#input').on('keypress',function (e) {
+                if (e.which == 13) { // if this is enter 
+                    if($(this).val() != ''){
+                        var event = $(this).val();
+                        console.log(event);
+                        $('#input').val('');
+
+
+                        var markup = $('<li>'+event+'</li>');
+                        $('#events').append(markup);
+
+                        $.get('/random/add', {event : event}, function(data){
+                            console.log('done');
+                            
+
+
+                        });
+
+
+
+
+                    }else{
+                       // some validation
+                    }
+                }
+
+            });
+            */
+
+        });
