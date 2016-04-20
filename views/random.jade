@@ -5,7 +5,7 @@ block head
 
 
 block content
-    h1 welcome
+    h1 welcome to random event
 
     div(ng-controller="MainCtrl")
         div(class="center")
@@ -22,7 +22,19 @@ block content
 
         div
             ul(id="events", class="list-unstyled")
-                li(ng-repeat="event in events track by $index") {{event.event}}
+                li(class="ui-state-default" ng-repeat="event in events track by $index") 
+                    div(class="input-group")
+                        span(class="input-group-addon")
+                            input(class="toggle" type="checkbox" ng-model="todo.completed" ng-click="todoCompleted(todo)")
+
+                        label(id="label" class="edit form-control input-lg") {{event.event}}
+
+
+                        span(class="input-group-btn")
+                            button(class="btn btn-default btn-lg destroy" ng-click="deleteEvent(event._id)")
+                                i(class="glyphicon glyphicon-remove")
+
+
                 // initialize current todo 
 
     script(type='text/javascript').

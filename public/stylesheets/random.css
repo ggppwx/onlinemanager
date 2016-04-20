@@ -3,3 +3,9 @@
 {
  text-align: center;
 }
+
+
+input#label
+{
+	background-color: white;
+}

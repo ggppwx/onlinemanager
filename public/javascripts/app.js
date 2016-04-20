@@ -57,8 +57,15 @@ app.controller('MainCtrl', ['$scope','$http', function($scope, $http){
 
 
 	$scope.deleteEvent = function(id){
-
-
+		$http.delete('/random/event/' + id).then(
+			function successCallback(resp){
+				console.log(resp.data);
+				$scope.events = resp.data;
+			}, 
+			function errorCallback(resp){
+				console.log('error');
+			}
+		);
 	};
 
 
