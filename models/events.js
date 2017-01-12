@@ -6,6 +6,7 @@ var Schema = mongoose.Schema
 var userSchema = new Schema( {
     event: String,
     type: String,
+    tags: [String],
     sortVal: Number,
 })
 

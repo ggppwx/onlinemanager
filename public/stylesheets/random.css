@@ -9,3 +9,10 @@ input#label
 {
 	background-color: white;
 }
+
+span#tag
+{
+	background-color: yellow;
+	margin-left: 2px;
+	margin-right: 2px;
+}

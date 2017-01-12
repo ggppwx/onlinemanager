@@ -9,7 +9,9 @@ router.get('/', function(req, res, next) {
 	// retrieve all records from database 
 	Todos.find().sort({ sortVal: 'asc' }).exec(function(errs, todos){
 		if(errs) {
+			console.log(errs);
 			console.log('Error in retrieving records');
+			res.render('todo', {todos : JSON.stringify([])});
 		}
 		res.render('todo', {todos : JSON.stringify(todos)});
 	});
@@ -20,8 +22,8 @@ router.get('/', function(req, res, next) {
 // save the todo 
 // at this point the report already exists 
 router.post('/save', function(req, res, next) {
-	console.log(req.body.name);
-	console.log(req.body.value);
+        console.log(req.body.name);
+        console.log(req.body.value);
 	console.log(req.body.pk);
 
 	var key = req.body.pk;
@@ -53,7 +55,7 @@ router.post('/add', function(req, res, next) {
 	var id = req.body.name;
 	var content = req.body.value;
 	console.log(content);
-
+        
 	var todo = new Todos({id: id, description : content, sortVal : 500});
 	todo.save(function (err, todo){
 		if(err) {
