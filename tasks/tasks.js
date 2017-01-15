@@ -1,7 +1,7 @@
 var nodemailer = require('nodemailer');
 var Git = require("nodegit");
 var path = require('path');
-
+var config = require('config');
 
 var Tasks = (function() {
 	var smtpConfig = {
@@ -14,17 +14,23 @@ var Tasks = (function() {
     	}
 	};
 
-	var absPath = path.resolve(__dirname, '../tmp/note');
+        if (config.has('Note.absPath')){
+	    var absPath = config.get('Note.absPath');
+	} else {
+	    var relPath = config.get('Note.relPath');
+	    absPath = path.resolve(__dirname, relPath);
+	}
 
 	this.transporter = nodemailer.createTransport(smtpConfig);
 
 
 	var pushNoteViaMail = function() {
-		console.log('--- running task1 -----');		
-		console.log(absPath);
+	    console.log('--- running task1 -----');
+	    console.log(absPath);
 
-		// github downloader 
-		Git.Clone("https://github.com/ggppwx/note.git", absPath).then(function(repository) {
+	    // github downloader
+	    var github = config.get('Note.githubLoc');
+	    Git.Clone(github, absPath).then(function(repository) {
 	  		// Work with the repository object here.
 	  		console.log('clone....');
 	  		// console.log(repository.getBranchCommit("master"));

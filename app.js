@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var config = require('config');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -15,10 +16,8 @@ var org = require('./routes/org');
 
 var app = express();
 
-
-
-var DB_NAME = 'todoDB';
-var DB_ADDRESS = 'mongodb://localhost:27017' // mongodb://roy:123456@104.198.230.211:27017
+var DB_NAME = config.get('MongoDb.dbName');
+var DB_ADDRESS = config.get('MongoDb.dbAddress'); // mongodb://roy:123456@104.198.230.211:27017
 
 mongoose.Promise = global.Promise;
 var db = mongoose.connect([DB_ADDRESS, DB_NAME].join('/')); 
