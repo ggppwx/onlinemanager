@@ -7,7 +7,9 @@
   },
   "scripts": {
     "start": "node ./bin/www",
-    "deploy": "gcloud app deploy  --project onlinemanager-1252"
+    "deploy": "gcloud app deploy  --project onlinemanager-1252",
+    "start_service": "forever start ./bin/www",
+    "stop_service": "forever stop ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
