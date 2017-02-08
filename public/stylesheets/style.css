@@ -1,8 +1,43 @@
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+
+
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+	
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+	
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+	
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+	body{font-size: 18px;}
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+
+	body{
+		padding-left: 1px;
+		padding-right: 1px;
+		font-size: 20px;
+	}
+
 }

@@ -3,3 +3,10 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  if user
+    p User is #{user.id}
+    | User name is #{user.displayName}
+    
+
+
+

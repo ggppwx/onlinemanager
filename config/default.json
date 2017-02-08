@@ -1,8 +1,7 @@
 {
     "Note" : {
 	"githubLoc": "https://github.com/ggppwx/note.git",
-	"relPath" : "../tmp/note",
-	"absPath" : "/home/roygu/data/note"
+	"relPath" : "../tmp/note"
     },
     "MongoDb" : {
 	"dbName" : "todoDB",

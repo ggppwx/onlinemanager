@@ -8,7 +8,8 @@ var Schema = mongoose.Schema
 var userSchema = new Schema( {
     id: String,
     description: String,
-    sortVal: Number
+    sortVal: Number,
+    owner: String  // owner id 
 })
 
 var Todo = mongoose.model('Todo', userSchema);

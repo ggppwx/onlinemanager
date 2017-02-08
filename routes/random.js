@@ -117,7 +117,7 @@ router.delete('/event/:id', (req, res) => {
 
 
 router.get('*', (req, res) => {
-	res.render('random',{});
+	res.render('random',{user: req.user});
 });
 
 

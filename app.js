@@ -6,13 +6,18 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var config = require('config');
+var passport = require('passport');
 
+
+
+require('./config/passport')(passport)
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var calendar = require('./routes/calendar');
 var todo = require('./routes/todo');
 var random = require('./routes/random');
 var org = require('./routes/org');
+var auth = require('./routes/auth');
 
 var app = express();
 
@@ -32,9 +37,19 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + '/node_modules/bootstrap-less/'));
+
 
 app.use('/', routes);
+app.use('/auth', auth);
 app.use('/users', users);
 app.use('/calendar', calendar);
 app.use('/todo', todo);
@@ -42,11 +57,10 @@ app.use('/random', random);
 app.use('/org', org);
 
 // offline tasks
-
 // console.log('-----------');
-var schedule = require('node-schedule');
-var t = require('./tasks/tasks');
-t.pushNoteViaMail();
+// var schedule = require('node-schedule');
+// var t = require('./tasks/tasks');
+// t.pushNoteViaMail();
 
 
 

@@ -2,12 +2,13 @@ doctype html
 html
     head
         title= title
-
-        link(rel='stylesheet', href='/stylesheets/style.css')
+        
         link(href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css", rel="stylesheet")       
         link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous")     
         link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous")
-        
+        link(rel='stylesheet', href='/stylesheets/style.css')
+
+
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js")
         script(src="//code.jquery.com/ui/1.11.4/jquery-ui.js")
         script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous")  
@@ -19,11 +20,21 @@ html
         script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js")
 
+        
+
+
+        meta(name="viewport", content="width=device-width,initial-scale=1")
+
+
+
+
  
 
         block head
 
     body(ng-app="app")
+        div(id="fb-root")
+
         block header
             include nav_header
         block content

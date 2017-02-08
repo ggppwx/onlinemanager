@@ -5,15 +5,30 @@ var Todos = require('../models/todos');
 
 
 router.get('/', function(req, res, next) {
-	console.log('init todo');
+	console.log('/todo');
 	// retrieve all records from database 
-	Todos.find().sort({ sortVal: 'asc' }).exec(function(errs, todos){
+
+	console.log(req.user);
+
+	var query = {owner : null};
+	if (req.user) {
+		let ownerid = req.user.id;
+		query  = {$or : [ 
+			{owner : null},
+			{owner : ownerid}
+		] };
+	}	
+
+	Todos.find(query).sort({ sortVal: 'asc' }).exec(function(errs, todos){
 		if(errs) {
 			console.log(errs);
 			console.log('Error in retrieving records');
 			res.render('todo', {todos : JSON.stringify([])});
 		}
-		res.render('todo', {todos : JSON.stringify(todos)});
+		res.render('todo', {
+			todos : JSON.stringify(todos), 
+			user: req.user
+		});
 	});
 
 });
@@ -52,11 +67,22 @@ router.post('/save', function(req, res, next) {
 
 // add new todo
 router.post('/add', function(req, res, next) {
+	console.log('/todo/add')
 	var id = req.body.name;
 	var content = req.body.value;
 	console.log(content);
-        
-	var todo = new Todos({id: id, description : content, sortVal : 500});
+    console.log(req.user);
+
+    let ownerid = null;
+    if (req.user){
+    	ownerid = req.user.id;
+    }
+	var todo = new Todos({
+		id: id, 
+		description : content, 
+		sortVal : 500,
+		owner : ownerid
+	});
 	todo.save(function (err, todo){
 		if(err) {
 			console.log('Error in creating new record');
