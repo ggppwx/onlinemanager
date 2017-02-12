@@ -1,6 +1,54 @@
 extends layout
 
+block head
+    script(type='text/javascript').
+        $(document).ready(function() { //when the documents reday 
+            google.charts.load("current", {packages:["calendar"]});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                $.get( "/org/refresh", function( data ) {
+                    // alert( "Load was performed." );
+                    
+
+                    var dataTable = new google.visualization.DataTable();
+                    dataTable.addColumn({ type: 'date', id: 'Date' });
+                     dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
+
+                    for (var i = 0; i < data.exerciseData.length; i++) {
+                        var row = [
+                            new Date(data.exerciseData[i][0]),
+                            data.exerciseData[i][1]
+                        ];
+                        dataTable.addRow(row);
+                    }                    
+
+                     var chart = new google.visualization.Calendar(document.    getElementById('calendar_basic'));
+
+                     var options = {
+                          title: "Workout statistics",
+                          height: 350,
+                          colorAxis : {
+                            minValue : -1
+                          }
+                     };
+
+                     chart.draw(dataTable, options);
+
+                });
+            }
+        });
+
 block content
-	h1 welcome to org 
-	div
-		iframe(height="1000", width="100%",srcdoc=agendaHtml) 
+    h1 welcome to org 
+    div
+        iframe(height="500", width="100%",srcdoc=agendaHtml) 
+
+
+    hr
+    h1 Graph
+    br     
+    div(id="calendar_basic" style="width: 1000px; height: 350px;")
+
+
+
