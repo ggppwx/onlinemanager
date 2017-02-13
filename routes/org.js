@@ -22,24 +22,52 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get('/refresh', function(req, res, next){
-
-    task.retrieveContent('exercise.csv', function (str) {
+router.get('/refresh/:content', function(req, res, next){
+    var file_name = req.params.content;
+    console.log(file_name);
+    task.retrieveContent(file_name + '.csv', function (str) {
         var csv = require('csv');
         csv.parse(str, 
             {from : 2, skip_lines_with_empty_values: true}, 
             function(err, data){
-                for (var i = 0; i < data.length; ++i) {
-                    data[i][1] = data[i][1].length;
+                if (file_name === "exercise") {
+                    data = processExercise(data);
+                } else if (file_name == "pomodora") { 
+                    data = processPomodora(data);
                 }
                 console.log(data);
                 res.json({ 
-                    exerciseData: data
+                    data: data
                 });
             }); 
     });
 
 
 });
+
+function processExercise(data){
+    var datas = [];
+    for (var i = 0; i < data.length; ++i) {
+        datas.push([data[i][0], data[i][1].length]);
+    }
+    return datas;
+}
+
+function processPomodora(data) {
+    var datamap = {};
+    for (var i = 0; i < data.length; ++i) {
+        if (data[i][0] in datamap) {
+            datamap[data[i][0]] += data[i][2].length/3;
+        } else {
+            datamap[data[i][0]] = data[i][2].length/3;
+        }
+    }
+    var result = [];
+    for (var obj in datamap) {
+        result.push([obj, datamap[obj]]);
+    }
+    return result;
+}
+
 
 module.exports = router;

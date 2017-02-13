@@ -7,23 +7,22 @@ block head
             google.charts.setOnLoadCallback(drawChart);
 
             function drawChart() {
-                $.get( "/org/refresh", function( data ) {
+                $.get( "/org/refresh/exercise", function( data ) {
                     // alert( "Load was performed." );
                     
-
                     var dataTable = new google.visualization.DataTable();
                     dataTable.addColumn({ type: 'date', id: 'Date' });
-                     dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
+                    dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
 
-                    for (var i = 0; i < data.exerciseData.length; i++) {
+                    for (var i = 0; i < data.data.length; i++) {
                         var row = [
-                            new Date(data.exerciseData[i][0]),
-                            data.exerciseData[i][1]
+                            new Date(data.data[i][0]),
+                            data.data[i][1]
                         ];
                         dataTable.addRow(row);
                     }                    
 
-                     var chart = new google.visualization.Calendar(document.    getElementById('calendar_basic'));
+                     var chart = new google.visualization.Calendar(document.    getElementById('calendar_workout'));
 
                      var options = {
                           title: "Workout statistics",
@@ -36,6 +35,42 @@ block head
                      chart.draw(dataTable, options);
 
                 });
+
+                $.get("/org/refresh/pomodora", function(data) {
+                    var dataTable = new google.visualization.DataTable();
+                    dataTable.addColumn({ type: 'date', id: 'Date' });
+                    dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
+
+                    for (var i = 0; i < data.data.length; i++) {
+                        var tmp_date = new Date(data.data[i][0]);
+                        var row = [
+                            new Date(tmp_date.getUTCFullYear(), 
+                                    tmp_date.getUTCMonth(),
+                                    tmp_date.getUTCDate()
+                                    ),
+                            data.data[i][1]
+                        ];
+                        console.log(row);
+                        dataTable.addRow(row);
+                    }                    
+
+                     var chart = new google.visualization.Calendar(document.    getElementById('calendar_pomodora'));
+
+                     var options = {
+                          title: "Pomodora statistics",
+                          height: 350,
+                          colorAxis : {
+                            minValue : -1
+                          }
+                     };
+
+                     chart.draw(dataTable, options);
+
+                });
+
+
+
+
             }
         });
 
@@ -46,9 +81,9 @@ block content
 
 
     hr
-    h1 Graph
-    br     
-    div(id="calendar_basic" style="width: 1000px; height: 350px;")
+    h1 Graph  
+    div(id="calendar_workout" style="width: 1000px; height: 350px;")
+    div(id="calendar_pomodora" style="width: 1000px; height: 350px;")
 
 
 
