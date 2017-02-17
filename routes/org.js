@@ -34,6 +34,8 @@ router.get('/refresh/:content', function(req, res, next){
                     data = processExercise(data);
                 } else if (file_name == "pomodora") { 
                     data = processPomodora(data);
+                } else if (file_name == "agenda") {
+                    data = processAgenda(data);
                 }
                 console.log(data);
                 res.json({ 
@@ -65,6 +67,28 @@ function processPomodora(data) {
     var result = [];
     for (var obj in datamap) {
         result.push([obj, datamap[obj]]);
+    }
+    return result;
+}
+
+function processAgenda(data) {
+    let result = [];
+    for (var i = 0; i < data.length; ++i) {
+        var d = data[i];
+        //($category,$head,$type,$todo,$tags,$date,$time,$extra,
+        // $priority_l,$priority_n)
+        result.push({
+            category : d[0],
+            head: d[1],
+            type: d[2],
+            todo: d[3],
+            tags: d[4],
+            date: d[5],
+            time: d[6],
+            extra: d[7],
+            priority_l: d[8],
+            priority_n: d[9]
+        });
     }
     return result;
 }

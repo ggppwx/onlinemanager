@@ -3,10 +3,13 @@ extends layout
 block head
     script(type='text/javascript').
         $(document).ready(function() { //when the documents reday 
-            google.charts.load("current", {packages:["calendar"]});
+            google.charts.load("current", {packages:["calendar", "table"]});
             google.charts.setOnLoadCallback(drawChart);
 
             function drawChart() {
+
+                drawTable();
+
                 $.get( "/org/refresh/exercise", function( data ) {
                     // alert( "Load was performed." );
                     
@@ -16,7 +19,7 @@ block head
 
                     for (var i = 0; i < data.data.length; i++) {
                         var row = [
-                            new Date(data.data[i][0]),
+                            toLocalDate(data.data[i][0]),
                             data.data[i][1]
                         ];
                         dataTable.addRow(row);
@@ -42,15 +45,10 @@ block head
                     dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
 
                     for (var i = 0; i < data.data.length; i++) {
-                        var tmp_date = new Date(data.data[i][0]);
                         var row = [
-                            new Date(tmp_date.getUTCFullYear(), 
-                                    tmp_date.getUTCMonth(),
-                                    tmp_date.getUTCDate()
-                                    ),
+                            toLocalDate(data.data[i][0]),
                             data.data[i][1]
                         ];
-                        console.log(row);
                         dataTable.addRow(row);
                     }                    
 
@@ -70,17 +68,59 @@ block head
 
 
 
+                function drawTable() {
+                    $.get('/org/refresh/agenda', function(data){
+                        var dataTable = new google.visualization.DataTable();
+                        dataTable.addColumn('string', 'Category');
+                        dataTable.addColumn('string', 'Name');
+                        dataTable.addColumn('string', 'State');
+                        dataTable.addColumn('string', 'Tag');
+                        dataTable.addColumn('date', 'Scheduled');
+                        dataTable.addColumn('string', 'Priority');
+                        
+                        
+                        for (var i = 0; i < data.data.length; i++) {
+                            var r = data.data[i];
+                            //($category,$head,$type,$todo,$tags,$date,$time,$extra, $priority_l,$priority_n)
+                            if(r.type == 'todo'){
+                                dataTable.addRow([
+                                    r.category,
+                                    r.head, 
+                                    r.todo,
+                                    r.tags,
+                                    toLocalDate(r.date),
+                                    r.priority_l
+                                ]);
+                            }
+                        }
+
+                        var table = new google.visualization.Table(document.getElementById('table_todo'));
+
+                        table.draw(dataTable, {title: 'TODO', showRowNumber: true, width: '100%', height: '100%'});
+                    });
+
+                }
 
             }
         });
 
+        function toLocalDate(dateStr) {
+            if (dateStr == '') return null;
+            var tmp_date = new Date(dateStr);
+            return new Date(tmp_date.getUTCFullYear(), 
+                            tmp_date.getUTCMonth(),
+                            tmp_date.getUTCDate());
+        }
+
 block content
     h1 welcome to org 
-    div
-        iframe(height="500", width="100%",srcdoc=agendaHtml) 
+    hr
 
+    h1 Table
+    div(id="table_todo")
 
     hr
+
     h1 Graph  
     div(id="calendar_workout" style="width: 1000px; height: 350px;")
     div(id="calendar_pomodora" style="width: 1000px; height: 350px;")
