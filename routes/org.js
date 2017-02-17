@@ -37,7 +37,7 @@ router.get('/refresh/:content', function(req, res, next){
                 } else if (file_name == "agenda") {
                     data = processAgenda(data);
                 }
-                console.log(data);
+                // console.log(data);
                 res.json({ 
                     data: data
                 });
