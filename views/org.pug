@@ -1,6 +1,21 @@
 extends layout
 
-block head
+block content
+    h1 welcome to org 
+    hr
+
+    h1 Table
+    div(id="table_todo")
+
+    hr
+
+    h1 Graph  
+    div(id="calendar_workout" style="width: 1000px; height: 350px;")
+    div(id="calendar_pomodora" style="width: 1000px; height: 350px;")
+
+
+
+block js
     script(type='text/javascript').
         $(document).ready(function() { //when the documents reday 
             google.charts.load("current", {packages:["calendar", "table"]});
@@ -111,19 +126,3 @@ block head
                             tmp_date.getUTCMonth(),
                             tmp_date.getUTCDate());
         }
-
-block content
-    h1 welcome to org 
-    hr
-
-    h1 Table
-    div(id="table_todo")
-
-    hr
-
-    h1 Graph  
-    div(id="calendar_workout" style="width: 1000px; height: 350px;")
-    div(id="calendar_pomodora" style="width: 1000px; height: 350px;")
-
-
-
