@@ -1,17 +1,24 @@
 extends layout
 
+block head
+    link(rel='stylesheet', href='/stylesheets/random.css')
+
 block content
     h1 welcome to org 
     hr
 
-    h1 Table
-    div(id="table_todo")
+    div(ng-controller="MainCtrl" class="container-fluid")
+        h1 Table
+        div(class="row")
+            div(id="table_todo")
 
-    hr
+        hr
 
-    h1 Graph  
-    div(id="calendar_workout" style="width: 1000px; height: 350px;")
-    div(id="calendar_pomodora" style="width: 1000px; height: 350px;")
+        h1 Graph  
+        div(class="row")
+            div(id="calendar_workout")
+        div.row
+            div(id="calendar_pomodora")
 
 
 
@@ -44,7 +51,7 @@ block js
 
                      var options = {
                           title: "Workout statistics",
-                          height: 350,
+                          height: 250,
                           colorAxis : {
                             minValue : -1
                           }
@@ -71,7 +78,7 @@ block js
 
                      var options = {
                           title: "Pomodora statistics",
-                          height: 350,
+                          height: 250,
                           colorAxis : {
                             minValue : -1
                           }
@@ -111,7 +118,7 @@ block js
 
                         var table = new google.visualization.Table(document.getElementById('table_todo'));
 
-                        table.draw(dataTable, {title: 'TODO', showRowNumber: true, width: '100%', height: '100%'});
+                        table.draw(dataTable, {title: 'TODO', showRowNumber: false});
                     });
 
                 }
