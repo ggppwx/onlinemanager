@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
 router.get('/refresh/:content', function(req, res, next){
     var file_name = req.params.content;
     console.log(file_name);
-    task.retrieveContent(file_name + '.csv', function (str) {
+    task.retrieveContent('csv/'+file_name + '.csv', function (str) {
         var csv = require('csv');
         csv.parse(str, 
             {from : 2, skip_lines_with_empty_values: true}, 
