@@ -8,7 +8,10 @@ a {
   color: #00B7FF;
 }
 
-
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
 
 
 /* Large desktops and laptops */

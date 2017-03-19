@@ -1,0 +1,18 @@
+extends layout
+
+block head
+
+block content
+    div(ng-controller="GenericChartCtrl" class="container")
+        div(ng-repeat="chart in charts track by $index" ) 
+            div(google-chart chart="yearlyChartObject"  agc-on-select="getDailyView(selectedItem, $index)" )  {{yearlyChartObject=chart;""}}
+
+
+        div(google-chart chart="dailyChartObject")
+
+block js
+    script(type='text/javascript').
+        $(document).ready(function() { //when the documents reday 
+            console.log('ready....');
+
+        });

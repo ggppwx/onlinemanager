@@ -13,7 +13,8 @@ var passport = require('passport');
 require('./config/passport')(passport)
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var calendar = require('./routes/calendar');
+var button = require('./routes/button');
+var statistics = require('./routes/statistics'); 
 var todo = require('./routes/todo');
 var random = require('./routes/random');
 var org = require('./routes/org');
@@ -51,10 +52,11 @@ app.use(express.static(__dirname + '/node_modules/bootstrap-less/'));
 app.use('/', routes);
 app.use('/auth', auth);
 app.use('/users', users);
-app.use('/calendar', calendar);
+app.use('/button', button);
 app.use('/todo', todo);
 app.use('/random', random);
 app.use('/org', org);
+app.use('/statistics', statistics);
 
 // offline tasks
 // console.log('-----------');

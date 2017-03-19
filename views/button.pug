@@ -1,0 +1,24 @@
+extends layout
+
+block head
+    link(rel='stylesheet', href='/stylesheets/button.css')
+
+block content
+    div(ng-controller="ButtonCtrl" class="container")
+        h1 Smart button
+        div(class="row")
+            div(class="col")
+                input(id="input" type="text" class="form-control" placeholder="Add Button" ng-model="input" ng-keyup="$event.keyCode == 13 && addButton()")
+
+        div(ng-repeat="event in events track by $index" ) 
+            div(class="row")
+                div(class="panel panel-default")                    
+                    a(class="close pull-right" ng-click="removeButton(event._id)") ×
+                    div(class="panel-body")
+                        div(class="row")
+                            div(class="col-xl-4 col-lg-4 col-sm-5 col-md-5 col-centered")
+                                div(class="round-button")
+                                    div(class="round-button-circle")
+                                        a(href="" ng-click="pushButton(event._id)" class="round-button") {{event.event}}  
+
+block js

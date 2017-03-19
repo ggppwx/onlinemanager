@@ -22,28 +22,49 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get('/refresh/:content', function(req, res, next){
-    var file_name = req.params.content;
-    console.log(file_name);
-    task.retrieveContent('csv/'+file_name + '.csv', function (str) {
+router.get('/refresh/agenda', function(req, res, next) {
+    task.retrieveContent('csv/agenda.csv', function (str) {
         var csv = require('csv');
         csv.parse(str, 
-            {from : 2, skip_lines_with_empty_values: true}, 
+            {from : 1, skip_lines_with_empty_values: true}, 
             function(err, data){
-                if (file_name === "exercise") {
-                    data = processExercise(data);
-                } else if (file_name == "pomodora") { 
-                    data = processPomodora(data);
-                } else if (file_name == "agenda") {
-                    data = processAgenda(data);
-                }
-                // console.log(data);
+                data = processAgenda(data);
                 res.json({ 
                     data: data
                 });
             }); 
     });
 
+});
+
+
+router.get('/refresh/exercise', function(req, res, next) {
+    task.retrieveContent('csv/exercise.csv', function (str) {
+        var csv = require('csv');
+        csv.parse(str, 
+            {from : 2, skip_lines_with_empty_values: true}, 
+            function(err, data){
+                data = processExercise(data);
+                res.json({ 
+                    data: data
+                });
+            }); 
+    });
+
+});
+
+router.get('/refresh/pomodora', function(req, res, next) {
+    task.retrieveContent('csv/pomodora.csv', function (str) {
+        var csv = require('csv');
+        csv.parse(str, 
+            {from : 2, skip_lines_with_empty_values: true}, 
+            function(err, data){
+                data = processPomodora(data);
+                res.json({ 
+                    data: data
+                });
+            }); 
+    });
 
 });
 
