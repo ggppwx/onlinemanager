@@ -19,6 +19,6 @@ block content
                             div(class="col-xl-4 col-lg-4 col-sm-5 col-md-5 col-centered")
                                 div(class="round-button")
                                     div(class="round-button-circle")
-                                        a(href="" ng-click="pushButton(event._id)" class="round-button") {{event.event}}  
+                                        a(href="" ng-click="pushButton(event._id)" ng-class="afterPush") {{event.event}}  
 
 block js

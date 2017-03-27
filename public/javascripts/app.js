@@ -43,6 +43,7 @@ function getTagsFromEvents(events){
 
 app.controller('MainCtrl', ['$scope','$http', function($scope, $http){
     
+    var stop;
     $http.get('/random/event').then(
         function successCallback(resp){
             console.log(resp.data);
@@ -132,7 +133,7 @@ app.controller('MainCtrl', ['$scope','$http', function($scope, $http){
 
 
 
-app.controller('ButtonCtrl', ['$scope','$http', function($scope, $http){
+app.controller('ButtonCtrl', ['$scope','$http','$interval', function($scope, $http, $interval){
 
     // retrieve all button 
     $http.get('/button/refresh').then(
@@ -163,6 +164,12 @@ app.controller('ButtonCtrl', ['$scope','$http', function($scope, $http){
 
 
     $scope.pushButton = function(event_id) {
+        $scope.afterPush = "disabled";
+        $interval.cancel(stop);
+        stop = $interval(function() {
+          $scope.afterPush = "";
+        }, 10000);
+
         $http.get('/button/push/' + event_id).then(
             function successCallback(resp){
                 console.log(resp.data);                
@@ -171,6 +178,10 @@ app.controller('ButtonCtrl', ['$scope','$http', function($scope, $http){
                 console.log('error');
             }
         );
+
+
+    
+
 
     };
 

@@ -20,8 +20,8 @@
 	width:100%;
 	padding-top:50%;
     padding-bottom:50%;
-	line-height:1em;
-	margin-top:-0.5em;
+	/* line-height:1em;
+	margin-top:-0.5em; */
     
 	text-align:center;
 	color:#e2eaf3;
@@ -29,4 +29,13 @@
     font-size:1.2em;
     font-weight:bold;
     text-decoration:none;
+}
+
+
+
+.round-button .disabled
+{
+  pointer-events: none;
+  cursor: default;
+  background:grey;
 }
