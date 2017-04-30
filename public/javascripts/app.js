@@ -3,16 +3,16 @@ var app = angular.module('app', ['ui.directives', 'ui.filters', 'googlechart']);
 app.value('googleChartApiConfig', {
             version: '1',
             optionalSettings: {
-                packages: ['corechart', 'calendar', 
+                packages: ['corechart', 'calendar',
                 'timeline'],
                 language: 'en'
             }
 });
 
-// adding a filter 
+// adding a filter
 app.filter('unique', function() {
    return function(collection, keyname) {
-      var output = [], 
+      var output = [],
           keys = [];
 
       angular.forEach(collection, function(item) {
@@ -20,7 +20,7 @@ app.filter('unique', function() {
             var key = item;
           } else {
             var key = item[keyname];
-          } 
+          }
           if(keys.indexOf(key) === -1) {
             keys.push(key);
             output.push(item);
@@ -42,7 +42,7 @@ function getTagsFromEvents(events){
 
 
 app.controller('MainCtrl', ['$scope','$http', function($scope, $http){
-    
+
     var stop;
     $http.get('/random/event').then(
         function successCallback(resp){
@@ -51,12 +51,12 @@ app.controller('MainCtrl', ['$scope','$http', function($scope, $http){
             $scope.output = 'welcome';
             $scope.currTag = 'All';
             $scope.tags = getTagsFromEvents(resp.data);
-        }, 
+        },
         function errorCallback(resp){
             console.log('error');
 
         });
-    
+
     // $scope.events = ['test', 'test1'];
 
     $scope.randomEvent = function(){
@@ -79,16 +79,16 @@ app.controller('MainCtrl', ['$scope','$http', function($scope, $http){
 
 
     $scope.addEvent = function(){
-        // send a request to 
+        // send a request to
         console.log($scope.input);
-        
+
         $http.post('/random/event/add', {event : $scope.input}).then(
             function successCallback(resp){
                 console.log(resp.data);
                 $scope.events = resp.data;
                 $scope.tags = getTagsFromEvents(resp.data);
                 $scope.currTag = 'All';
-            }, 
+            },
             function errorCallback(resp){
                 console.log('error');
             }
@@ -106,7 +106,7 @@ app.controller('MainCtrl', ['$scope','$http', function($scope, $http){
                 $scope.events = resp.data;
                 $scope.tags = getTagsFromEvents(resp.data);
                 $scope.currTag = 'All';
-            }, 
+            },
             function errorCallback(resp){
                 console.log('error');
             }
@@ -127,7 +127,7 @@ app.controller('MainCtrl', ['$scope','$http', function($scope, $http){
                 $scope.events[i].hide = false;
             }
         }
-    }; 
+    };
 
 }]);
 
@@ -135,12 +135,12 @@ app.controller('MainCtrl', ['$scope','$http', function($scope, $http){
 
 app.controller('ButtonCtrl', ['$scope','$http','$interval', function($scope, $http, $interval){
 
-    // retrieve all button 
+    // retrieve all button
     $http.get('/button/refresh').then(
         function successCallback(resp){
             console.log(resp.data);
             $scope.events = resp.data;
-        }, 
+        },
         function errorCallback(resp){
             console.log('error');
 
@@ -152,8 +152,8 @@ app.controller('ButtonCtrl', ['$scope','$http','$interval', function($scope, $ht
             function successCallback(resp){
                 console.log(resp.data);
                 $scope.events = resp.data;
-                
-            }, 
+
+            },
             function errorCallback(resp){
                 console.log('error');
             }
@@ -172,15 +172,15 @@ app.controller('ButtonCtrl', ['$scope','$http','$interval', function($scope, $ht
 
         $http.get('/button/push/' + event_id).then(
             function successCallback(resp){
-                console.log(resp.data);                
-            }, 
+                console.log(resp.data);
+            },
             function errorCallback(resp){
                 console.log('error');
             }
         );
 
 
-    
+
 
 
     };
@@ -189,9 +189,9 @@ app.controller('ButtonCtrl', ['$scope','$http','$interval', function($scope, $ht
     $scope.removeButton = function(event_id) {
         $http.delete('/button/remove/' + event_id).then(
             function successCallback(resp){
-                console.log(resp.data); 
-                $scope.events = resp.data;               
-            }, 
+                console.log(resp.data);
+                $scope.events = resp.data;
+            },
             function errorCallback(resp){
                 console.log('error');
             }
@@ -283,10 +283,10 @@ app.controller('GenericChartCtrl', ['$scope','$http', function($scope, $http){
         var dailyChartObject = {
             type : "Timeline",
             data : {
-                cols: [       
+                cols: [
                     { type: 'string', id: 'Event' }
                     , { type: 'date', id: 'Start' }
-                    , { type: 'date', id: 'End' }                
+                    , { type: 'date', id: 'End' }
                 ]
                 , rows: [
                     {
@@ -304,12 +304,12 @@ app.controller('GenericChartCtrl', ['$scope','$http', function($scope, $http){
             }
 
         };
-              
+
 
         if (data && index >= 0 && base.cache[index]) {
             console.log(base.cache[index]);
 
-            
+
             var event_name = base.cache[index].event;
             var record_map = base.cache[index].record_map;
             var date_key = toLocalDate(data.date).toDateString();
@@ -324,7 +324,7 @@ app.controller('GenericChartCtrl', ['$scope','$http', function($scope, $http){
 
 
             console.log(record_map[date_key].details);
-            
+
             for (var i = 0; i < record_map[date_key].details.length; i++) {
                 var detail = record_map[date_key].details[i];
                 console.log(detail);
@@ -348,21 +348,21 @@ app.controller('GenericChartCtrl', ['$scope','$http', function($scope, $http){
 
 
         }
-        
+
 
     }
 
 
 
 
-    // construtor 
+    // construtor
     $http.get('/statistics/all').then(
         function successCallback(resp){
             console.log(resp.data);
 
             base.cache  = resp.data;
 
-            // build charts 
+            // build charts
             var charts = [];
             for (var i = 0; i < resp.data.length; i++) {
                 var data = resp.data[i];
@@ -378,6 +378,7 @@ app.controller('GenericChartCtrl', ['$scope','$http', function($scope, $http){
                     },
                     options: {
                         title: data.event,
+                        width: 900,
                         colorAxis : {
                             minValue : 0
                         }
@@ -397,7 +398,7 @@ app.controller('GenericChartCtrl', ['$scope','$http', function($scope, $http){
                 charts.push(reportCalendarChart);
             }
             $scope.charts = charts;
-        }, 
+        },
         function errorCallback(resp){
             console.log('error');
 
@@ -417,8 +418,7 @@ app.controller('GenericChartCtrl', ['$scope','$http', function($scope, $http){
 function toLocalDate(dateStr) {
     if (dateStr == '') return null;
     var tmp_date = new Date(dateStr);
-    return new Date(tmp_date.getUTCFullYear(), 
+    return new Date(tmp_date.getUTCFullYear(),
                     tmp_date.getUTCMonth(),
                     tmp_date.getUTCDate());
 }
-

@@ -4,20 +4,20 @@ block head
     link(rel='stylesheet', href='/stylesheets/random.css')
 
 block content
-    h1 welcome to org 
+    h1 welcome to org
     hr
 
     div(ng-controller="MainCtrl" class="container-fluid")
         h1 Table
-        
+
         div(id="table_todo")
 
         hr
 
-        h1 Graph  
+        h1 Graph
 
         div(id="calendar_workout")
-        
+
         div(id="calendar_pomodora")
 
 
@@ -25,7 +25,7 @@ block content
 
 block js
     script(type='text/javascript').
-        $(document).ready(function() { //when the documents reday 
+        $(document).ready(function() { //when the documents reday
             google.charts.load("current", {packages:["calendar", "table"]});
             google.charts.setOnLoadCallback(drawChart);
 
@@ -35,7 +35,7 @@ block js
 
                 $.get( "/org/refresh/exercise", function( data ) {
                     // alert( "Load was performed." );
-                    
+
                     var dataTable = new google.visualization.DataTable();
                     dataTable.addColumn({ type: 'date', id: 'Date' });
                     dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
@@ -46,13 +46,14 @@ block js
                             data.data[i][1]
                         ];
                         dataTable.addRow(row);
-                    }                    
+                    }
 
                      var chart = new google.visualization.Calendar(document.    getElementById('calendar_workout'));
 
                      var options = {
                           title: "Workout statistics",
                           height: 250,
+                          width: 900,
                           colorAxis : {
                             minValue : -1
                           }
@@ -73,13 +74,14 @@ block js
                             data.data[i][1]
                         ];
                         dataTable.addRow(row);
-                    }                    
+                    }
 
                      var chart = new google.visualization.Calendar(document.    getElementById('calendar_pomodora'));
 
                      var options = {
                           title: "Pomodora statistics",
                           height: 250,
+                          width: 900,
                           colorAxis : {
                             minValue : -1
                           }
@@ -100,15 +102,15 @@ block js
                         dataTable.addColumn('string', 'Tag');
                         dataTable.addColumn('date', 'Scheduled');
                         dataTable.addColumn('string', 'Priority');
-                        
-                        
+
+
                         for (var i = 0; i < data.data.length; i++) {
                             var r = data.data[i];
                             //($category,$head,$type,$todo,$tags,$date,$time,$extra, $priority_l,$priority_n)
                             if(r.type == 'todo'){
                                 dataTable.addRow([
                                     r.category,
-                                    r.head, 
+                                    r.head,
                                     r.todo,
                                     r.tags,
                                     toLocalDate(r.date),
@@ -130,7 +132,7 @@ block js
         function toLocalDate(dateStr) {
             if (dateStr == '') return null;
             var tmp_date = new Date(dateStr);
-            return new Date(tmp_date.getUTCFullYear(), 
+            return new Date(tmp_date.getUTCFullYear(),
                             tmp_date.getUTCMonth(),
                             tmp_date.getUTCDate());
         }
