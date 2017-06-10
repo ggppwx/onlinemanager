@@ -93,7 +93,7 @@ function processPomodora(data) {
 }
 
 function processAgenda(data) {
-    let result = [];
+    var result = [];
     for (var i = 0; i < data.length; ++i) {
         var d = data[i];
         //($category,$head,$type,$todo,$tags,$date,$time,$extra,

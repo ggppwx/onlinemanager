@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 
     var query = {owner : null};
     if (req.user) {
-        let ownerid = req.user.id;
+        var ownerid = req.user.id;
         query  = {$or : [ 
             {owner : null},
             {owner : ownerid}
@@ -73,7 +73,7 @@ router.post('/add', function(req, res, next) {
     console.log(content);
     console.log(req.user);
 
-    let ownerid = null;
+    var ownerid = null;
     if (req.user){
         ownerid = req.user.id;
     }
