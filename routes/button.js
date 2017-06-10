@@ -14,7 +14,7 @@ router.post('/add', function(req, res, next){
     console.log('button added');
     var eventContent = req.body.event
 
-    let ownerid = null;
+    var ownerid = null;
     if (req.user){
         ownerid = req.user.id;
     }
