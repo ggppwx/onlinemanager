@@ -19,7 +19,7 @@ var todo = require('./routes/todo');
 var random = require('./routes/random');
 var org = require('./routes/org');
 var auth = require('./routes/auth');
-
+const editor = require('./routes/editor')
 var app = express();
 
 var DB_NAME = config.get('MongoDb.dbName');
@@ -57,6 +57,7 @@ app.use('/todo', todo);
 app.use('/random', random);
 app.use('/org', org);
 app.use('/statistics', statistics);
+app.use('/editor', editor)
 
 // offline tasks
 // console.log('-----------');
