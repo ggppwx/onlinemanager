@@ -6,7 +6,7 @@ block content
     div(ng-controller="GenericChartCtrl" class="container")
         div(ng-repeat="chart in charts track by $index" ) 
             div(google-chart chart="yearlyChartObject"  agc-on-select="getDailyView(selectedItem, $index)" )  {{yearlyChartObject=chart;""}}
-
+            <!-- adding display:block -->
 
         div(google-chart chart="dailyChartObject")
 

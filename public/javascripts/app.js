@@ -414,6 +414,76 @@ app.controller('GenericChartCtrl', ['$scope','$http', function($scope, $http){
 }]);
 
 
+app.controller('SmartTableCtrl', ['$scope','$http', function($scope, $http){
+    console.log('SmartTableCtrl');
+    $scope.model = {
+        tables : [
+            {
+                id : 'table1',
+                name : "gym",
+                content : {
+                    headers : [
+                        "name",
+                        "set 1",
+                        "set 2",
+                        "set 3",
+                        "set 4"
+                    ],
+                    rows : [
+                        {
+                            id : 1,
+                            cols : [
+                                "哑铃卧推",
+                                "12-25lbs",
+                                "12-35lbs",
+                                "12-35lbs",
+                                "12-30lbs"
+                            ]
+                        },
+                        {
+                            id : 2,
+                            cols : [
+                                "俯卧撑",
+                                12,
+                                12,
+                                10,
+                                10
+                            ]
+                        },
+                        {
+                            id : 3,
+                            cols : [
+                                "坐姿推胸",
+                                12,
+                                12,
+                                12,
+                                10
+                            ]
+                        }
+                    ]
+                }
+
+            }
+
+        ] 
+    };
+
+    $scope.getTemplate = function(row) {
+
+    };
+
+
+    $scope.edit = function(row) {
+
+    };
+
+    $scope.save = function(row) {
+
+        
+    };
+
+}]);
+
 
 function toLocalDate(dateStr) {
     if (dateStr == '') return null;
