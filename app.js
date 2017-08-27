@@ -19,7 +19,11 @@ var todo = require('./routes/todo');
 var random = require('./routes/random');
 var org = require('./routes/org');
 var auth = require('./routes/auth');
+
 var table = require('./routes/table');
+
+
+const editor = require('./routes/editor')
 
 var app = express();
 
@@ -59,6 +63,8 @@ app.use('/random', random);
 app.use('/org', org);
 app.use('/statistics', statistics);
 app.use('/table', table);
+app.use('/editor', editor);
+
 
 // offline tasks
 // console.log('-----------');

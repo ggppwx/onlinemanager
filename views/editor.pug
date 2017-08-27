@@ -1,0 +1,27 @@
+extends layout
+
+block head
+    link(href="//cdn.quilljs.com/1.3.1/quill.snow.css" rel="stylesheet")
+    link(href="//cdn.quilljs.com/1.3.1/quill.bubble.css" rel="stylesheet")
+    link(href="//cdn.quilljs.com/1.3.1/quill.core.css" rel="stylesheet")
+
+
+block content
+    div
+        h1 Smart button
+        div(id="editor")
+            p Hello World!
+            p Some initial 
+
+
+
+  
+
+block js
+    script(src="//cdn.quilljs.com/1.3.1/quill.js")
+
+
+    script(type='text/javascript').
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
