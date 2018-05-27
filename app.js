@@ -10,7 +10,7 @@ var passport = require('passport');
 
 
 
-require('./config/passport')(passport)
+require('./config/passport')(passport);
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var button = require('./routes/button');
@@ -21,9 +21,9 @@ var org = require('./routes/org');
 var auth = require('./routes/auth');
 
 var table = require('./routes/table');
+var code = require('./routes/code');
 
-
-const editor = require('./routes/editor')
+const editor = require('./routes/editor');
 
 var app = express();
 
@@ -64,6 +64,7 @@ app.use('/org', org);
 app.use('/statistics', statistics);
 app.use('/table', table);
 app.use('/editor', editor);
+app.use('/code', code);
 
 
 // offline tasks

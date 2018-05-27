@@ -12,23 +12,32 @@ div(class="navbar navbar-default navbar-fixed-top", role="navigation")
         div(class="collapse navbar-collapse", id="bs-navbar-collapse-1")
             ul(class="nav navbar-nav")
                 li
-                    a(href="/editor") writing 
-                li
-                    a(href="/button") Smart Button
-                li
-                    a(href="/statistics") Statistics
-                li
-                    a(href="/table") Smart Table
+                    a(href="/code") Code
                 li
                     a(href="/todo") Todo
                 li
                     a(href="/random") Random Event
                 li
-                    a(href="/org") Org
+                    a(href="/button") Smart Button
+
+                li.dropdown
+                    a(href="#", class = "dropdown-toggle", data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false")
+                        |TODOS
+                        span.caret
+
+                    ul(class="dropdown-menu" )
+                        li
+                            a(href="/statistics") Statistics
+
+                        li
+                            a(href="/editor") writing
+                        li
+                            a(href="/table") Smart Table
+
+                //li
+                //    a(href="/org") Org
                 li
                     a(href="http://blog.roygu123.com") Blog
-                                
-
 
             ul(class="nav navbar-nav navbar-right")
                 li.dropdown

@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 
     };
 
-    task.retrieveContent('agenda.html', processAgendaFile)
+    task.retrieveContent('agenda.html', processAgendaFile);
 
 
 

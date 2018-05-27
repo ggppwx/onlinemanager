@@ -1,5 +1,5 @@
 var nodemailer = require('nodemailer');
-var Git = require("nodegit");
+// var Git = require("nodegit");
 var path = require('path');
 var config = require('config');
 

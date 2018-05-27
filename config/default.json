@@ -1,10 +1,13 @@
 {
     "Note" : {
-	"githubLoc": "https://github.com/ggppwx/note.git",
-	"relPath" : "../tmp/note"
+	      "githubLoc": "https://github.com/ggppwx/note.git",
+	      "relPath" : "../tmp/note"
     },
     "MongoDb" : {
-	"dbName" : "todoDB",
-	"dbAddress" : "mongodb://localhost:27017"
+	      "dbName" : "todoDB",
+	      "dbAddress" : "mongodb://localhost:27017"
+    },
+    "Dropbox" : {
+        "path" : "/Users/jingweigu/Dropbox/"
     }
 }
