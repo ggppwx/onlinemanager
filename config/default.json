@@ -8,6 +8,6 @@
 	      "dbAddress" : "mongodb://localhost:27017"
     },
     "Dropbox" : {
-        "path" : "/Users/jingweigu/Dropbox/"
+        "path" : "/home/roygu/Dropbox/"
     }
 }
